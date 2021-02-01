@@ -10,7 +10,7 @@ namespace UserTask.Application.User.Commands.DeleteUser
     {
         public DeleteCommandValidator()
         {
-            RuleFor(i => i.Id).NotNull();
+            RuleFor(i => i.Id).GreaterThan(0);
         }
     }
 }

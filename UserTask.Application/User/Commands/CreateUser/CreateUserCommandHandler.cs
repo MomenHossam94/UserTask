@@ -24,13 +24,17 @@ namespace UserTask.Application.User.Commands.CreateUser
         {
             var user = _mapper.Map<Domain.Entities.User>(request);
             _userDbContext.Users.Add(user);
+
+            var result = new CreateUserResult();
+
             if (await _userDbContext.SaveChangesAsync(cancellationToken) > 0)
             {
-                return new CreateUserResult { Id = user.Id, Success = true };
+                result.Id = user.Id;
+                result.Success = true;
             }
 
 
-            return new CreateUserResult { Success = false };
+            return result;
 
         }
     }

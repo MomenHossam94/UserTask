@@ -22,6 +22,8 @@ namespace UserTask.Application.User.Commands.UpdateUser
         {
             var user = await _context.Users.FirstOrDefaultAsync(i=>i.Id==request.Id);
             if (user == null) throw new  NotFoundException(request.Id);
+          
+            //TODO: use Automapper
             user.Name = request.Name;
             user.JoiningDate = request.JoiningDate;
             user.Phone = request.Phone;

@@ -49,18 +49,19 @@ namespace UserTask.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-             
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
-       
+
             app.UseEndpoints(endpoints =>
             {
 
                 endpoints.MapControllers();
             });
+            //TODO: duplicated
             app.UseCors("AllowOrigin");
 
         }

@@ -10,7 +10,7 @@ using UserTask.Application.Common.Interfaces;
 
 namespace UserTask.Application.User.Commands.DeleteUser
 {
-    public class DeleteUserCommandHandler :IRequestHandler<DeleteUserCommand,DeleteUserResult>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, DeleteUserResult>
     {
         private readonly IUserDbContext _context;
         public DeleteUserCommandHandler(IUserDbContext context)
@@ -19,14 +19,20 @@ namespace UserTask.Application.User.Commands.DeleteUser
         }
         public async Task<DeleteUserResult> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(i=>i.Id==request.Id);
-            if (user == null) throw new NotFoundException(request.Id);
+            var user = await _context.Users.FirstOrDefaultAsync(i => i.Id == request.Id);
+
+            if (user == null)
+            {
+                throw new NotFoundException(request.Id);
+            }
+
             _context.Users.Remove(user);
-            if(await _context.SaveChangesAsync(cancellationToken)>0)
+
+            if (await _context.SaveChangesAsync(cancellationToken) > 0)
             {
                 return new DeleteUserResult { Id = request.Id, IsDeleted = true };
-
             }
+
             return new DeleteUserResult { Id = request.Id, IsDeleted = false };
 
         }

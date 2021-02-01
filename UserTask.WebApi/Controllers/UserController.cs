@@ -13,20 +13,20 @@ using UserTask.Application.User.Queries.GetUserList;
 
 namespace UserTask.WebApi.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
-  
+
 
     public class UserController : ApiController
     {
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("Get")]
-    
+        //TODO: user [FromQuery] attribute
         public async Task<IActionResult> Get(int id)
         {
-            var result = await Mediator.Send(new GetUserDetailQuery {  Id =id});
+            var result = await Mediator.Send(new GetUserDetailQuery { Id = id });
 
             return Ok(result);
         }
@@ -43,8 +43,8 @@ namespace UserTask.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         [Route("Create")]
-        
-        public async Task<IActionResult> Create([FromBody]CreateUserCommand command)
+
+        public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             var result = await Mediator.Send(command);
 
@@ -54,7 +54,7 @@ namespace UserTask.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         [Route("Update")]
-        public async Task<IActionResult> Update([FromBody]UpdateUserCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
         {
             var result = await Mediator.Send(command);
 
@@ -64,9 +64,10 @@ namespace UserTask.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         [Route("Delete")]
+        //TODO: user [FromQuery] attribute
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await Mediator.Send(new DeleteUserCommand { Id=id});
+            var result = await Mediator.Send(new DeleteUserCommand { Id = id });
 
             return Ok(result);
         }
