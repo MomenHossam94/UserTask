@@ -5,11 +5,11 @@ using System.Text;
 
 namespace UserTask.Application.User.Queries.GetUserDetails
 {
-    public class GetUserDetailQueryValidator:AbstractValidator<GetUserDetailQuery>
+    public class GetUserDetailQueryValidator : AbstractValidator<GetUserDetailQuery>
     {
         public GetUserDetailQueryValidator()
         {
-            RuleFor(i => i.Id).NotEmpty();
+            RuleFor(i => i.Id).GreaterThan(0);
         }
     }
 }

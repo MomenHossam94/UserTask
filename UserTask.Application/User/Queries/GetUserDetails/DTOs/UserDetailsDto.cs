@@ -6,7 +6,7 @@ using UserTask.Application.Common.Mapping;
 
 namespace UserTask.Application.User.Queries.GetUserDetails
 {
-    public class UserDetailsVm:IMapFrom<Domain.Entities.User>
+    public class UserDetailsDto : IMapFrom<Domain.Entities.User>
     {
 
         public int Id { get; set; }
@@ -16,10 +16,10 @@ namespace UserTask.Application.User.Queries.GetUserDetails
         public DateTime JoiningDate { get; set; }
         public string Position { get; set; }
         public string Address { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Entities.User, User.Queries.GetUserDetails.UserDetailsVm>().ReverseMap();
+            profile.CreateMap<Domain.Entities.User, User.Queries.GetUserDetails.UserDetailsDto>().ReverseMap();
 
         }
 

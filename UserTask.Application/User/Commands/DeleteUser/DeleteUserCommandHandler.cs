@@ -28,12 +28,15 @@ namespace UserTask.Application.User.Commands.DeleteUser
 
             _context.Users.Remove(user);
 
+            var result = new DeleteUserResult();
+
             if (await _context.SaveChangesAsync(cancellationToken) > 0)
             {
-                return new DeleteUserResult { Id = request.Id, IsDeleted = true };
+                result.Id = request.Id;
+                result.IsDeleted = true;
             }
 
-            return new DeleteUserResult { Id = request.Id, IsDeleted = false };
+            return result;
 
         }
     }

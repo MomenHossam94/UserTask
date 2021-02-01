@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,30 +14,35 @@ namespace UserTask.Application.User.Commands.UpdateUser
     public class UpdateUserCommandHander : IRequestHandler<UpdateUserCommand, UpdateUserResult>
     {
         private readonly IUserDbContext _context;
-        
-        public UpdateUserCommandHander(IUserDbContext context)
+        private readonly IMapper _mapper;
+
+
+        public UpdateUserCommandHander(IUserDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public async Task<UpdateUserResult> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(i=>i.Id==request.Id);
-            if (user == null) throw new  NotFoundException(request.Id);
-          
-            //TODO: use Automapper
-            user.Name = request.Name;
-            user.JoiningDate = request.JoiningDate;
-            user.Phone = request.Phone;
-            user.Position = request.Position;
-            user.Salary = request.Salary;
-            user.Age = request.Age;
-            user.Address = request.Address;
-            _context.Users.Update(user);
-            if(await _context.SaveChangesAsync(cancellationToken)>0)
+           var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(i=>i.Id==request.Id);
+            if (user == null)
             {
-                return new UpdateUserResult {Id = request.Id,IsUpdated=true };
+                throw new NotFoundException(request.Id);
             }
-            return new UpdateUserResult { Id = request.Id, IsUpdated = false };
+
+            var result = new UpdateUserResult();
+            //TODO: use Automapper
+            var userModel = _mapper.Map<Domain.Entities.User>(request);
+
+            _context.Users.Update(userModel);
+
+            if (await _context.SaveChangesAsync(cancellationToken) > 0)
+            {
+                result.Id = request.Id;
+                result.IsUpdated = true;
+            }
+
+            return result;
         }
     }
 }

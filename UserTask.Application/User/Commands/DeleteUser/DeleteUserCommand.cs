@@ -6,7 +6,7 @@ using UserTask.Application.User.Commands.CreateUser;
 
 namespace UserTask.Application.User.Commands.DeleteUser
 {
-    public class DeleteUserCommand:IRequest<DeleteUserResult>
+    public class DeleteUserCommand : IRequest<DeleteUserResult>
     {
         public int Id { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace UserTask.Application.User.Queries.GetUserList
 {
-    public class GetUserListVm
+    public class GetUserListDto
     {
         public IList<UserDto> Users { get; set; }
     }

@@ -12,9 +12,9 @@ namespace UserTask.Presistence.Configuration
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.ToTable(nameof(User));
-            builder.Property(e => e.Name).IsRequired().HasMaxLength(50);
+            builder.Property(e => e.Name).IsRequired().HasMaxLength(150);
             builder.Property(e => e.Age).IsRequired();
-            builder.Property(e => e.Address).HasMaxLength(60);
+            builder.Property(e => e.Address).HasMaxLength(160);
             builder.Property(e => e.Phone).IsRequired();
         }
     }

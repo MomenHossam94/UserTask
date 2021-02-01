@@ -11,7 +11,7 @@ using UserTask.Application.Common.Interfaces;
 
 namespace UserTask.Application.User.Queries.GetUserList
 {
-    public class GetUserListQueryHandler : IRequestHandler<GetUserListQuery, GetUserListVm>
+    public class GetUserListQueryHandler : IRequestHandler<GetUserListQuery, GetUserListDto>
     {
         private readonly IUserDbContext _context;
         private readonly IMapper _mapper;
@@ -21,13 +21,17 @@ namespace UserTask.Application.User.Queries.GetUserList
             _context = context;
             _mapper = mapper;
         }
-        public async Task<GetUserListVm> Handle(GetUserListQuery request, CancellationToken cancellationToken)
+        public async Task<GetUserListDto> Handle(GetUserListQuery request, CancellationToken cancellationToken)
         {
             var userList = await _context.Users.ToListAsync();
-            var userVm = new GetUserListVm();
+
+            var userDto = new GetUserListDto();
+
             var userListDto = _mapper.Map<List<UserDto>>(userList);
-            userVm.Users = userListDto;
-            return userVm;
+
+            userDto.Users = userListDto;
+
+            return userDto;
         }
     }
 }

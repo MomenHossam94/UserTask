@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UserTask.Application.Common.Interfaces;
+using UserTask.Application.User.Commands.CreateUser.DTOs;
 
 namespace UserTask.Application.User.Commands.CreateUser
 {
@@ -23,6 +24,7 @@ namespace UserTask.Application.User.Commands.CreateUser
         public async Task<CreateUserResult> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var user = _mapper.Map<Domain.Entities.User>(request);
+
             _userDbContext.Users.Add(user);
 
             var result = new CreateUserResult();

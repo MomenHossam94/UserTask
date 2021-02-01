@@ -12,7 +12,7 @@ using UserTask.Application.User.Queries.GetUserDetails;
 
 namespace UserTask.Application.User.Queries.GetUserDetails
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserDetails.GetUserDetailQuery, UserDetailsVm>
+    public class GetUserQueryHandler : IRequestHandler<GetUserDetails.GetUserDetailQuery, UserDetailsDto>
     {
         private readonly IUserDbContext _context;
         private readonly IMapper _mapper;
@@ -21,12 +21,15 @@ namespace UserTask.Application.User.Queries.GetUserDetails
             _context = context;
             _mapper = mapper;
         }
-        public async Task<UserDetailsVm> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
+        public async Task<UserDetailsDto> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(i=>i.Id==request.Id);
+            var user = await _context.Users.FirstOrDefaultAsync(i => i.Id == request.Id);
+
             if (user == null) throw new NotFoundException(request.Id);
-            var userDetailVm = _mapper.Map<UserDetailsVm>(user);
-            return userDetailVm;
+
+            var userDetailDto = _mapper.Map<UserDetailsDto>(user);
+
+            return userDetailDto;
         }
     }
 }

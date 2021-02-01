@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UserTask.Application.User.Commands.DeleteUser
 {
-    public class DeleteCommandValidator:AbstractValidator<DeleteUserCommand>
+    public class DeleteCommandValidator : AbstractValidator<DeleteUserCommand>
     {
         public DeleteCommandValidator()
         {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UserTask.Application.User.Queries.GetUserList
 {
-    public class GetUserListQuery:IRequest<GetUserListVm>
+    public class GetUserListQuery : IRequest<GetUserListDto>
     {
     }
 }

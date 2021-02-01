@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UserTask.Application.User.Queries.GetUserDetails
 {
-    public class GetUserDetailQuery:IRequest<UserDetailsVm>
+    public class GetUserDetailQuery : IRequest<UserDetailsDto>
     {
         public int Id { get; set; }
     }
